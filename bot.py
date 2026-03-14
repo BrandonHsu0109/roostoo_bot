@@ -187,7 +187,7 @@ def main():
     # Strategy config (baseline you validated)
     cfg = RareContrarianConfig(
         lookback_minutes=30,
-        entry_rL=-0.03,
+        entry_rL=-0.025,
         market_r_min=-0.0025,
         confirm_r1_min=0.002,
         confirm_r3_min=-0.005,
