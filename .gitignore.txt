@@ -1,0 +1,16 @@
+# Python env + cache
+.venv/
+venv/
+__pycache__/
+*.pyc
+
+# Runtime data / logs
+logs/
+logs_archive/
+*.csv
+*.jsonl
+
+# Secrets (never commit)
+.env
+*.env
+secrets.*
