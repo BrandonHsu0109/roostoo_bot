@@ -216,7 +216,7 @@ def main():
         )
 
     # Cadence
-    rebalance_every = 5
+    rebalance_every = 1
 
     # Time resync policy
     resync_every_sec = 10 * 60
