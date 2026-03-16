@@ -116,7 +116,21 @@ class RoostooClient:
     def get_balance(self) -> Dict[str, Any]:
         headers, payload, total_params = self._sign({})
         url = f"{self.base_url}/v3/balance?{total_params}"
-        return self._request_with_retry("GET", url, headers=headers)
+        data = self._request_with_retry("GET", url, headers=headers)
+
+        if isinstance(data, dict):
+            # Prefer SpotWallet for spot trading
+            if "Wallet" not in data:
+                spot = data.get("SpotWallet")
+                if isinstance(spot, dict):
+                    data["Wallet"] = spot
+                else:
+                    # Fallback if API ever returns Wallet under a different key
+                    margin = data.get("MarginWallet")
+                    if isinstance(margin, dict):
+                        data["Wallet"] = margin
+
+        return data
 
     def get_pending_count(self) -> Dict[str, Any]:
         headers, payload, total_params = self._sign({})
