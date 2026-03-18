@@ -368,7 +368,7 @@ def main():
                     print(f"[bootstrap] SELL triggered pair={bootstrap_pair} (done)")
 
             # Execute strategy actions when appropriate
-            should_execute = do_rebalance or bool(debug.get("exit_signal", False))
+            should_execute = bool(debug.get("entry_signal", False)) or bool(debug.get("exit_signal", False))
             if exec_engine is not None and should_execute and need_wallet:
                 # Only execute if bootstrap didn't already execute this loop
                 if not actions:
