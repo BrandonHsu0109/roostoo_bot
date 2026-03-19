@@ -192,7 +192,7 @@ def main():
         confirm_r1_min=0.001,
         confirm_r3_min=-0.005,
         entry_ch24_max=None,
-        invest_frac=0.02,
+        invest_frac=0.12,
         take_profit=0.006,
         stop_loss=-0.01,
         max_hold_minutes=30,
