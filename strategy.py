@@ -22,7 +22,7 @@ class RareContrarianConfig:
     # Risk / exits
     invest_frac: float = 0.05            # invest 5% of PV
     take_profit: float = 0.006           # +0.6%
-    stop_loss: float = -0.01             # -1.0%
+    stop_loss: float = -0.008             # -0.8%
     max_hold_minutes: int = 30           # time stop
 
     # Filters
