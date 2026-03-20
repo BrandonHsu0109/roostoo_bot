@@ -144,12 +144,10 @@ Note: Trade sizes scale automatically according to portfolio value `PV`. Adjust 
 
 ### 4.1 Install dependencies (recommended: virtual environment)
 ```bash
-{
     python -m venv .venv
     source .venv/bin/activate
     python -m pip install --upgrade pip
     pip install -r requirements.txt
-}
 ```
 
 ### 4.2 Set API keys
@@ -157,54 +155,40 @@ Set environment variables:
 
 **Windows (Command Prompt)**
 ```bat
-{
     set "ROOSTOO_API_KEY=YOUR_KEY"
     set "ROOSTOO_SECRET_KEY=YOUR_SECRET"
     set "ROOSTOO_BASE_URL=https://mock-api.roostoo.com"
-}
 ```
 
 **Linux/EC2 (recommended)**
 Create `~/.roostoo-bot.env`:
 ```bash
-{
     ROOSTOO_API_KEY=YOUR_KEY
     ROOSTOO_SECRET_KEY=YOUR_SECRET
     ROOSTOO_BASE_URL=https://mock-api.roostoo.com
-}
 ```
 Load it:
 ```bash
-{
     set -a; . ~/.roostoo-bot.env; set +a
-}
 ```
 
 ### 4.3 Signed endpoint test (optional but recommended before running)
 ```bash
-{
     python -c "import os; from roostoo_client import RoostooClient; c=RoostooClient(os.getenv('ROOSTOO_BASE_URL','https://mock-api.roostoo.com'), os.getenv('ROOSTOO_API_KEY',''), os.getenv('ROOSTOO_SECRET_KEY','')); print('offset_ms', c.sync_time()); print(c.get_balance())"
-}
 ```
 
 ### 4.4 Run modes
 - **Public only (signal generation only, no real trades)**
 ```bash
-{
     python bot.py --public-only --dry-run --loop-seconds 60
-}
 ```
 - **Dry run (keys required, no real orders placed)**
 ```bash
-{
     python bot.py --dry-run --loop-seconds 60
-}
 ```
 - **Live run (keys required, real orders placed)**
 ```bash
-{
     python bot.py --loop-seconds 60
-}
 ```
 
 ### 4.5 Logs
@@ -215,32 +199,25 @@ The bot writes logs to `logs/`:
 ### 4.6 EC2 (Amazon Linux) quickstart with tmux
 1. Install tmux:
 ```bash
-{
     sudo yum install -y tmux   # Amazon Linux 2
     # or
     sudo dnf install -y tmux   # Amazon Linux 2023
-}
 ```
 2. Start a session:
 ```bash
-{
     tmux new -s session_name
-}
 ```
 3. Load keys and run:
 ```bash
-{
     set -a; . ~/.roostoo-bot.env; set +a
     cd ~/roostoo_bot
     source .venv/bin/activate
     python bot.py --loop-seconds 60
-}
 ```
 detach session:
 - `Ctrl + B` and then `D`
+
 reattach:
 ```bash
-{
     tmux attach -t session_name
-}
 ```
