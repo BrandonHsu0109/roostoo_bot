@@ -194,7 +194,7 @@ def main():
         entry_ch24_max=None,
         invest_frac=0.12,
         take_profit=0.006,
-        stop_loss=-0.01,
+        stop_loss=-0.008,
         max_hold_minutes=30,
         min_unit_value=8_000_000.0,
         max_spread_pct=0.0031,
