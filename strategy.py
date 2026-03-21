@@ -2,6 +2,7 @@
 from __future__ import annotations
 
 from dataclasses import dataclass
+from doctest import debug
 from typing import Any, Dict, Optional, Tuple, List
 import numpy as np
 
@@ -20,10 +21,11 @@ class RareContrarianConfig:
     entry_ch24_max: Optional[float] = None  # None = no 24h filter
 
     # Risk / exits
-    invest_frac: float = 0.05            # invest 5% of PV
-    take_profit: float = 0.006           # +0.6%
-    stop_loss: float = -0.008             # -0.8%
+    invest_frac: float = 0.12            
+    take_profit: float = 0.006           
+    stop_loss: float = -0.008            
     max_hold_minutes: int = 30           # time stop
+    cooldown_after_stop_mins: int = 30   # cooldown period after stop loss
 
     # Filters
     min_unit_value: float = 8_000_000.0
@@ -51,6 +53,7 @@ class RareEventContrarian:
         self.pending_entry_pair: Optional[str] = None
         self.pending_entry_price: Optional[float] = None
         self.pending_entry_ts_ms: Optional[int] = None
+        self.cooldown_until_ms: int = 0
 
     @property
     def in_position(self) -> bool:
@@ -203,11 +206,18 @@ class RareEventContrarian:
                     self.entry_price = None
                     self.entry_ts_ms = None
                 return targets, debug
+            
+            if "stop_loss" in exit_reason:
+                self.cooldown_until_ms = now_ts_ms + int(cfg.cooldown_after_stop_min) * 60000
 
             debug["reason"] = f"holding pnl={pnl:.4f} held_min={held_min}"
             return targets, debug
 
         # Flat: entry only on rebalance
+        if now_ts_ms < int(getattr(self, "cooldown_until_ms", 0)):
+            debug["reason"] = f"cooldown_after_stop (until {self.cooldown_until_ms})"
+            return targets, debug
+
         if not do_rebalance:
             debug["reason"] = "flat (not rebalance minute)"
             return targets, debug
