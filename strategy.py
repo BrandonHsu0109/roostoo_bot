@@ -15,8 +15,8 @@ class RareContrarianConfig:
     # Entry
     lookback_minutes: int = 30
     entry_rL: float = -0.03              # rL <= -3%
-    market_r_min: float = -0.0025        # median rL across base_ok >= -0.25%
-    confirm_r1_min: float = 0.001        # last 1-min return >= +0.2%
+    market_r_min: float = -0.004        # median rL across base_ok >= -0.25%
+    confirm_r1_min: float = 0.002        # last 1-min return >= +0.2%
     confirm_r3_min: float = -0.005       # last 3-min return >= -0.5% (loose)
     entry_ch24_max: Optional[float] = None  # None = no 24h filter
 
