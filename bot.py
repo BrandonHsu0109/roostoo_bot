@@ -175,7 +175,7 @@ def main():
         lookback_minutes=30,
         entry_rL=-0.025,
         market_r_min=-0.004,
-        confirm_r1_min=0.002,
+        confirm_r1_min=0.001,
         confirm_r3_min=-0.005,
         entry_ch24_max=None,
         invest_frac=0.12,
