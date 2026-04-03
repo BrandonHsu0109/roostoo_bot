@@ -31,21 +31,6 @@ The bot looks for coins that have experienced an unusually large short-term drop
 
 ## 2. Architecture
 
-### System design diagram
-
-Roostoo API (ticker/balance/orders)
-           |
-           v
-        bot.py  (main loop, scheduling, modes, logging)
-           |
-   +-------+--------------------+
-   |                            |
-   v                            v
-store.py (market history)   execution.py (orders)
-   |                            |
-   v                            v
-strategy.py (signals)     roostoo_client.py (API, HMAC, time sync)
-
 ### Components
 - **Data Module (`store.py`)**
     - Maintains rolling market history per pair (mid/bid/ask/spread/liquidity)
