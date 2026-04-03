@@ -199,6 +199,10 @@ class RareEventContrarian:
             if exit_reason:
                 debug["exit_signal"] = True
                 debug["exit_reason"] = exit_reason
+
+                if "stop_loss" in exit_reason:
+                    self.cooldown_until_ms = now_ts_ms + int(cfg.cooldown_after_stop_mins) * 60000
+
                 debug["reason"] = f"exit {exit_reason} pnl={pnl:.4f} held_min={held_min}"
                 if public_only:
                     # simulate exit
@@ -206,13 +210,10 @@ class RareEventContrarian:
                     self.entry_price = None
                     self.entry_ts_ms = None
                 return targets, debug
-            
-            if "stop_loss" in exit_reason:
-                self.cooldown_until_ms = now_ts_ms + int(cfg.cooldown_after_stop_min) * 60000
 
             debug["reason"] = f"holding pnl={pnl:.4f} held_min={held_min}"
             return targets, debug
-
+            
         # Flat: entry only on rebalance
         if now_ts_ms < int(getattr(self, "cooldown_until_ms", 0)):
             debug["reason"] = f"cooldown_after_stop (until {self.cooldown_until_ms})"

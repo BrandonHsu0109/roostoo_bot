@@ -184,6 +184,7 @@ def main():
         max_hold_minutes=30,
         min_unit_value=8_000_000.0,
         max_spread_pct=0.0031,
+        cooldown_after_stop_mins=30,
     )
     strat = RareEventContrarian(cfg)
 
